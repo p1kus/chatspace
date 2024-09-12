@@ -81,7 +81,7 @@ socket.on("userTyping", () => {
 
 socket.on("chat message", (username, msg, usernameColor) => {
   const item = document.createElement("li");
-  // item.textContent = msg;
+  console.log(usernameColor);
   item.innerHTML = `<span style="color: ${usernameColor}">${username}: </span> ${msg}`;
   messages.appendChild(item);
   window.scrollTo(0, document.body.scrollHeight);

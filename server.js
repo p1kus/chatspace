@@ -1,4 +1,5 @@
 import express from "express";
+import { generateHex } from "./generateHex.js";
 import { createServer } from "node:http";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -9,16 +10,6 @@ const server = createServer(app);
 const io = new Server(server);
 
 const users = [];
-//Trzymac to w obiekcie, user - kolor?
-
-const generateHex = () => {
-  const chars = "0123456789abcdef";
-  let hex = "#";
-  for (let i = 0; i <= 5; i++) {
-    hex += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return hex;
-};
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -38,12 +29,8 @@ io.on("connection", (socket) => {
     let color = generateHex();
     let user = { userData, color, id: socket.id };
     users.push(user);
-    console.log(users);
-    for (user of users) {
-      console.log(user.userData);
-    }
+    console.table(users);
     io.emit("usersUpdate", users);
-    socket.userColor = color;
     socket.userData = userData;
   });
   socket.on("disconnect", () => {
@@ -62,7 +49,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("chat message", (username, msg) => {
-    let user = users.find((user) => user.username === username);
+    console.log(socket.userData);
+    let user = users.find((user) => user.userData === username);
     let usernameColor = user ? user.color : "#000000";
     io.emit("chat message", username, msg, usernameColor);
   });
