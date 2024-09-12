@@ -53,16 +53,18 @@ form.addEventListener("keydown", (e) => {
 
 // form.addEventListener("keyup");
 
-console.log(color);
-
 socket.on("connect", function () {
   username = prompt("Enter your nickname");
-  color = generateHex();
   socket.emit("newUser", username);
   socket.on("usersUpdate", (users) => {
+    let usernames = [];
+    users.forEach((user) => {
+      console.log(user);
+      usernames.push(user.userData);
+    });
     userList.innerHTML = `<span style="color: #007BFF; font-weight:bold">Users online: [${
       users.length
-    }] </span>   ${users.join(", ")}`;
+    }] </span> ${usernames.join(", ")}`;
   });
 });
 
@@ -77,7 +79,7 @@ socket.on("userTyping", () => {
   }, 1500);
 });
 
-socket.on("chat message", (usernameColor, username, msg) => {
+socket.on("chat message", (username, msg, usernameColor) => {
   const item = document.createElement("li");
   // item.textContent = msg;
   item.innerHTML = `<span style="color: ${usernameColor}">${username}: </span> ${msg}`;

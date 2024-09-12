@@ -9,6 +9,7 @@ const server = createServer(app);
 const io = new Server(server);
 
 const users = [];
+//Trzymac to w obiekcie, user - kolor?
 
 const generateHex = () => {
   const chars = "0123456789abcdef";
@@ -18,8 +19,6 @@ const generateHex = () => {
   }
   return hex;
 };
-
-let color = "";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -36,17 +35,20 @@ io.on("connection", (socket) => {
   socket.on("newUser", (userData) => {
     console.log(`New user
     ${userData}`);
-    // username = userData;
-    color = generateHex();
-    socket.userColor = color;
-    users.push(userData);
+    let color = generateHex();
+    let user = { userData, color, id: socket.id };
+    users.push(user);
     console.log(users);
+    for (user of users) {
+      console.log(user.userData);
+    }
     io.emit("usersUpdate", users);
+    socket.userColor = color;
     socket.userData = userData;
   });
   socket.on("disconnect", () => {
     let userData = socket.userData;
-    let index = users.indexOf(userData);
+    let index = users.findIndex((user) => user.userData === userData);
     if (index !== -1) {
       users.splice(index, 1);
     }
@@ -56,12 +58,14 @@ io.on("connection", (socket) => {
   socket.on("userTyping", () => {
     console.log(`User is typing rn`);
     socket.broadcast.emit("userTyping");
+    //Broadcast - so the user typing does not get the tooltip. (Send to all but the sender)
   });
-});
 
-socket.on("chat message", (username, msg) => {
-  let usernameColor = socket.userColor;
-  io.emit("chat message", usernameColor, username, msg);
+  socket.on("chat message", (username, msg) => {
+    let user = users.find((user) => user.username === username);
+    let usernameColor = user ? user.color : "#000000";
+    io.emit("chat message", username, msg, usernameColor);
+  });
 });
 
 server.listen(3000, () => {
