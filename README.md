@@ -1,6 +1,6 @@
 # Socket.IO chat app
 
-This is a real-time chat application built with HTML, CSS, JavaScript, Node.js and Socket.IO.
+Real-time chat application built with HTML, CSS, JavaScript, Node.js and Socket.IO.
 
 ## Key features
 
@@ -22,7 +22,7 @@ To install the Real-Time Chat Application, follow these steps:
 1. Clone the repository:
 
 ```
-git clone https://github.com/yourusername/socket-chat.git
+git clone https://github.com/p1kus/socket-chat.git
 ```
 
 2. Navigate to the project directory
