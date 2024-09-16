@@ -32,7 +32,9 @@ io.on("connection", (socket) => {
     console.table(users);
     io.emit("usersUpdate", users);
     socket.userData = userData;
+    io.emit("system message", userData, "connected");
   });
+
   socket.on("disconnect", () => {
     let userData = socket.userData;
     let index = users.findIndex((user) => user.userData === userData);
@@ -40,6 +42,7 @@ io.on("connection", (socket) => {
       users.splice(index, 1);
     }
     io.emit("usersUpdate", users);
+    io.emit("system message", userData, "disconnected");
     console.log(`${userData} disconnected`);
   });
   socket.on("userTyping", () => {
