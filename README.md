@@ -1,4 +1,4 @@
-# Socket.IO chat app
+# chatspace
 
 Real-time chat application built with HTML, CSS, JavaScript, Node.js and Socket.IO.
 
@@ -9,6 +9,7 @@ Real-time chat application built with HTML, CSS, JavaScript, Node.js and Socket.
 - Usernames support with random name colors
 - Online user list
 - Typing indicators ("User is typing...")
+- Connect/Disconnect alerts
 
 
 ## Prerequisites
@@ -17,7 +18,7 @@ Real-time chat application built with HTML, CSS, JavaScript, Node.js and Socket.
 
 ## Installing the application
 
-To install the Real-Time Chat Application, follow these steps:
+To install chatspace:
 
 1. Clone the repository:
 
