@@ -22,5 +22,3 @@ const validate = (data) => {
   // if not, throw error,
 };
 // console.log(validate("admin"));
-
-module.exports = validate;
