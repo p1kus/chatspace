@@ -1,12 +1,13 @@
 body {
   margin: 0;
   padding-bottom: 3rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+  font-family: "Inconsolata", monospace;
+  font-weight: 500;
+  font-style: italic;
 }
 
 #form {
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(54, 49, 49, 0.15);
   padding: 0.25rem;
   position: fixed;
   bottom: 0;
@@ -27,14 +28,20 @@ body {
 #input:focus {
   outline: none;
 }
+
 #form > button {
-  background: #333;
+  background: rgb(186, 188, 255);
   border: none;
   padding: 0 1rem;
   margin: 0.25rem;
   border-radius: 3px;
   outline: none;
   color: #fff;
+  letter-spacing: 0.1rem;
+}
+
+button {
+  font-family: "Inconsolata", monospace;
 }
 
 #messages {
@@ -54,6 +61,7 @@ body {
 }
 
 #typing-tooltip {
+  width: 120px;
   position: relative;
   left: 14px;
   p {
@@ -71,4 +79,70 @@ body {
 .visible {
   opacity: 1;
   transition: opacity 0.5s;
+}
+
+dialog {
+  border: 0px;
+  border-radius: 4px;
+  width: 50vw;
+  /* padding: 36px; */
+  .dialog-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    font-size: 1rem;
+    input {
+      padding: 10px;
+      width: 200px;
+      border: 4px solid rgb(186, 188, 255);
+      border-radius: 18px;
+      transition: all 0.1s;
+    }
+
+    input::placeholder {
+      color: gray;
+      font-style: italic;
+    }
+
+    pre {
+      font-size: 0.7rem;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    /* input:hover {
+    } */
+
+    h6 {
+      font-weight: lighter;
+      font-size: 0.75rem;
+      margin-bottom: 0;
+    }
+    button {
+      padding: 8px 48px;
+      background: transparent;
+      border: 1px solid black;
+      border-radius: 8px;
+    }
+  }
+}
+
+#errorText {
+  color: red;
+}
+
+::backdrop {
+  /* background-image: linear-gradient(
+      45deg,
+    magenta,
+    rebeccapurple,
+    dodgerblue,
+    green
+  ); */
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  /* opacity: 0.75; */
 }

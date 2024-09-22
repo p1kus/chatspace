@@ -4,8 +4,37 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Socket.IO chat</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Rubik+Mono+One&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <dialog>
+      <div class="dialog-container">
+        <pre>
+______        _____                                  
+_________  /_______ __  /_____________________ ___________ 
+/  ___/_  __ \  __ `/  __/_  ___/__  __ \  __ `/  ___/  _ \
+/ /__ _  / / / /_/ // /_ _(__  )__  /_/ / /_/ // /__ /  __/
+\___/ /_/ /_/\__,_/ \__/ /____/ _  .___/\__,_/ \___/ \___/ 
+                              /_/                   
+      </pre
+        >
+        <p>Enter your username to join!</p>
+        <input
+          type="text"
+          name="username"
+          id="dialogInput"
+          placeholder="username"
+        />
+        <h6>3 to 16 characters, only latin characters and numbers</h6>
+        <p id="errorText" class="hidden">Invalid username!</p>
+        <button>JOIN</button>
+      </div>
+    </dialog>
     <h4 id="users-online">Users online:</h4>
     <ul id="messages"></ul>
     <div id="typing-tooltip" class="hidden">
@@ -15,6 +44,6 @@
       <input id="input" autocomplete="off" /><button>Send</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="./client.js"></script>
+    <script src="./client.js" type="module"></script>
   </body>
 </html>

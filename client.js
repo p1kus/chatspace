@@ -1,17 +1,30 @@
-// import { generateHex } from "./generateHex.js";
+import { validate } from "./validation.js";
 
 const socket = io();
 let username;
-
-//Dodac walidacje nickow
 
 const userList = document.querySelector("#users-online");
 const userTypingTooltip = document.querySelector("#typing-tooltip");
 const form = document.querySelector("#form");
 const input = document.querySelector("#input");
 const messages = document.querySelector("#messages");
+const errorItem = document.querySelector("#errorText");
+
+const dialog = document.querySelector("dialog");
+const dialogInput = document.querySelector("#dialogInput");
+const closeButton = document.querySelector("dialog button");
 
 let typeTimeout;
+
+// TODO
+
+// Fix message overflow (add max chars limit?)
+
+// Check for username duplicates
+
+// Make it more beautiful maybe
+
+// Check for empty string in username input
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -27,11 +40,37 @@ form.addEventListener("keydown", (e) => {
   }
 });
 
+const validateUser = () => {
+  const validateResult = validate(username);
+  if (validateResult === true) {
+    socket.emit("newUser", username);
+    dialog.close();
+  } else {
+    errorItem.classList.remove("hidden");
+  }
+};
+
 // form.addEventListener("keyup");
 
 socket.on("connect", function () {
-  username = prompt("Enter your nickname");
-  socket.emit("newUser", username);
+  dialog.showModal();
+  dialogInput.value = "";
+
+  dialogInput.addEventListener("input", () => {
+    console.log(dialogInput.value);
+    username = dialogInput.value;
+  });
+
+  dialog.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      validateUser();
+    }
+  });
+
+  // "Close" button closes the dialog
+  closeButton.addEventListener("click", validateUser);
+  // username = prompt("Enter your nickname");
+
   socket.on("usersUpdate", (users) => {
     let usernames = [];
     users.forEach((user) => {
