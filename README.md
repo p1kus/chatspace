@@ -22,7 +22,8 @@ Real-time chat application built with:
 - User identification by socket
 - Username validation, with a check for duplicates (server-side)
 - Usernames support with random name colors
-- Online user list
+- Username blacklist (can't use "admin" as an username for an example.)
+- Online user list (refreshed on every socket on a new connection/disconnect)
 - Typing indicators ("User is typing...")
 - Connect/Disconnect alerts
 
