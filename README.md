@@ -8,6 +8,9 @@ Real-time chat application built with:
 - Socket.IO
 - Jest (tests)
 
+
+## Preview
+
   ![SCR-20240925-rzkn](https://github.com/user-attachments/assets/0cc10e96-1948-4b11-a6d7-3c82e5ad87d6)
   ![SCR-20240925-rzvk](https://github.com/user-attachments/assets/6b64d3fd-964f-4595-a06a-d9c956d25556)
 
