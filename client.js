@@ -1,7 +1,6 @@
 import { validate } from "./validation.js";
 
 const socket = io();
-let username;
 
 const userList = document.querySelector("#users-online");
 const userTypingTooltip = document.querySelector("#typing-tooltip");
@@ -15,16 +14,7 @@ const dialogInput = document.querySelector("#dialogInput");
 const closeButton = document.querySelector("dialog button");
 
 let typeTimeout;
-
-// TODO
-
-// Fix message overflow (add max chars limit?)
-
-// Check for username duplicates
-
-// Make it more beautiful maybe
-
-// Check for empty string in username input
+let username = "";
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -40,24 +30,29 @@ form.addEventListener("keydown", (e) => {
   }
 });
 
+//Wrzucic tą funcje do validation.js
 const validateUser = () => {
   const validateResult = validate(username);
   if (validateResult === true) {
-    socket.emit("newUser", username);
-    dialog.close();
+    socket.emit("newUser", username, (noDuplicate) => {
+      if (noDuplicate) {
+        dialog.close();
+      } else {
+        errorItem.classList.remove("hidden");
+      }
+    }); // Add closing bracket here
+  } else if (username === "") {
+    errorItem.classList.remove("hidden");
   } else {
     errorItem.classList.remove("hidden");
   }
 };
-
-// form.addEventListener("keyup");
 
 socket.on("connect", function () {
   dialog.showModal();
   dialogInput.value = "";
 
   dialogInput.addEventListener("input", () => {
-    console.log(dialogInput.value);
     username = dialogInput.value;
   });
 
@@ -67,14 +62,12 @@ socket.on("connect", function () {
     }
   });
 
-  // "Close" button closes the dialog
+  // this is actually a submit button in dialog named like that
   closeButton.addEventListener("click", validateUser);
-  // username = prompt("Enter your nickname");
 
   socket.on("usersUpdate", (users) => {
-    let usernames = [];
+    const usernames = [];
     users.forEach((user) => {
-      console.log(user);
       usernames.push(user.userData);
     });
     userList.innerHTML = `<span style="color: #007BFF; font-weight:bold">Users online: [${
@@ -86,7 +79,6 @@ socket.on("connect", function () {
 socket.on("userTyping", () => {
   userTypingTooltip.classList.remove("hidden");
   userTypingTooltip.classList.add("visible");
-
   clearTimeout(typeTimeout);
   typeTimeout = setTimeout(() => {
     userTypingTooltip.classList.remove("visible");
@@ -96,7 +88,6 @@ socket.on("userTyping", () => {
 
 socket.on("chat message", (username, msg, usernameColor) => {
   const item = document.createElement("li");
-  console.log(usernameColor);
   item.innerHTML = `<span style="color: ${usernameColor}">${username}: </span> ${msg}`;
   messages.appendChild(item);
   window.scrollTo(0, document.body.scrollHeight);
@@ -113,4 +104,3 @@ socket.on("system message", (username, alert) => {
   userTypingTooltip.classList.add("hidden");
   clearTimeout(typeTimeout);
 });
-socket.on("disconnected", () => {});

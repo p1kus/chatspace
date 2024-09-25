@@ -50,6 +50,8 @@ button {
   padding: 0;
 }
 #messages > li {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   padding: 0.5rem 1rem;
 }
 #messages > li:nth-child(odd) {

@@ -1,16 +1,3 @@
-const errorItem = document.querySelector("#errorText");
-
-const validateUser = () => {
-  const validateResult = validate(username);
-  if (validateResult === true) {
-    errorItem.classList.add("hidden");
-    socket.emit("newUser", username);
-    dialog.close();
-  } else {
-    errorItem.classList.remove("hidden");
-  }
-};
-
 export const validate = (data) => {
   let pattern = /^[A-Za-z0-9]{3,16}$/;
   let blacklist = ["Admin", "System", "Sys", "Mod", "Moderator"];

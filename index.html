@@ -41,7 +41,9 @@ _________  /_______ __  /_____________________ ___________
       <p>User is typing...</p>
     </div>
     <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
+      <input id="input" autocomplete="off" maxlength="200" /><button>
+        Send
+      </button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
     <script src="./client.js" type="module"></script>
