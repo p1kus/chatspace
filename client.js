@@ -30,7 +30,6 @@ form.addEventListener("keydown", (e) => {
   }
 });
 
-//Wrzucic tą funcje do validation.js
 const validateUser = () => {
   const validateResult = validate(username);
   if (validateResult === true) {
