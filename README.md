@@ -1,12 +1,23 @@
 # chatspace
 
-Real-time chat application built with HTML, CSS, JavaScript, Node.js and Socket.IO.
+Real-time chat application built with:
+- HTML,
+- CSS,
+- JavaScript,
+- Node.js
+- Socket.IO
+- Jest (tests)
+
+  ![SCR-20240925-rzkn](https://github.com/user-attachments/assets/0cc10e96-1948-4b11-a6d7-3c82e5ad87d6)
+  ![SCR-20240925-rzvk](https://github.com/user-attachments/assets/6b64d3fd-964f-4595-a06a-d9c956d25556)
+
+
 
 ## Key features
 
 - Web Sockets
 - User identification by socket
-- Username validation, check for duplicates (server-side)
+- Username validation, with a check for duplicates (server-side)
 - Usernames support with random name colors
 - Online user list
 - Typing indicators ("User is typing...")
