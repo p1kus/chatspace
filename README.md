@@ -6,7 +6,7 @@ Real-time chat application built with HTML, CSS, JavaScript, Node.js and Socket.
 
 - Web Sockets
 - User identification by socket
-- Username validation
+- Username validation, check for duplicates (server-side)
 - Usernames support with random name colors
 - Online user list
 - Typing indicators ("User is typing...")
